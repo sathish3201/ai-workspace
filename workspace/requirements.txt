@@ -1,0 +1,12 @@
+langchain-groq
+langchain
+langgraph
+langchain-openai
+
+fastapi>=0.133,<1
+starlette>=1.3.1,<2
+opentelemetry-api==1.42.1
+opentelemetry-sdk==1.42.1
+opentelemetry-semantic-conventions==0.63b1
+jedi
+uvicorn
