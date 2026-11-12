@@ -8,10 +8,10 @@ PROJECT_DIR = Path(__file__).resolve().parents[2]
 if str(PROJECT_DIR) not in sys.path:
     sys.path.insert(0, str(PROJECT_DIR))
 
-print(PROJECT_DIR)
-from configs import Settings
+# print(PROJECT_DIR)
+from config import settings
 
-WORKSPACE_ROOT= Settings.BACKEND_DIR
+WORKSPACE_ROOT= PROJECT_DIR
 
 import sqlite3
 from pathlib import Path

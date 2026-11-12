@@ -4,15 +4,17 @@ from langchain.agents import create_agent
 from langchain.agents.middleware import HumanInTheLoopMiddleware
 from langgraph.checkpoint.memory import InMemorySaver
 from pathlib import Path
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
-from configs import Settings
 
-from workspace.tools.workspace_tools import (
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+
+from workspace_tools import (
     write_file,
     execute_sql,
     read_data,
 )
-from workspace.prompts.system import SYSTEM_PROMPT
+from config import settings
+from system import SYSTEM_PROMPT
 
 
 # Keep one checkpointer and one agent instance for the session.
@@ -21,7 +23,7 @@ checkpointer = InMemorySaver()
 # print(Settings.groq_api_key())
 model = ChatGroq(
     model="openai/gpt-oss-20b",
-    api_key=Settings.groq_api_key(),
+    api_key=settings.groq_api_key,
     temperature=0,
 )
 

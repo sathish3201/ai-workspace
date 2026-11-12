@@ -2,6 +2,7 @@
 from threading import Lock
 from typing import Any, Literal
 from uuid import uuid4
+import uvicorn
 
 from fastapi import FastAPI, HTTPException
 from fastapi.encoders import jsonable_encoder
@@ -16,8 +17,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from configs import Settings
-from workspace.agents.engine import agent, run_agent
+# from workspace.app.config import settings
+from engine import agent, run_agent
 
 
 app = FastAPI(
@@ -297,3 +298,10 @@ def hitl_respond(request: RespondRequest):
             status_code=500,
             detail=f"Agent resume failed: {type(exc).__name__}: {exc}",
         ) from exc
+
+# @app.get("/")
+# def read_root():
+#     return {"message": "Hello World"}
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="127.0.0.1", port=8012, reload=True)
