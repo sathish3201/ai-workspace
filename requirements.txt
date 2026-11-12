@@ -10,3 +10,4 @@ opentelemetry-sdk==1.42.1
 opentelemetry-semantic-conventions==0.63b1
 jedi
 uvicorn
+pydantic_settings
