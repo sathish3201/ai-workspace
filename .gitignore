@@ -28,10 +28,6 @@ logs/
 *.sqlite3
 .cache/
 
-hitl-frontend/node_modules/
-hitl-frontend/dist/
-hitl-frontend/.vite/
-hitl-frontend/coverage/
 
 .vscode/
 .idea/
