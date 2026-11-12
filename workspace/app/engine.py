@@ -8,13 +8,13 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 
-from workspace_tools import (
+from workspace.app.workspace_tools import (
     write_file,
     execute_sql,
     read_data,
 )
-from config import settings
-from system import SYSTEM_PROMPT
+from workspace.app.config import settings
+from workspace.app.system import SYSTEM_PROMPT
 
 
 # Keep one checkpointer and one agent instance for the session.

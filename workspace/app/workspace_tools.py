@@ -1,15 +1,15 @@
 import sys
 from pathlib import Path
 
-# Locate project root
+# # Locate project root
 PROJECT_DIR = Path(__file__).resolve().parents[2]
 
 # Make configs package importable
 if str(PROJECT_DIR) not in sys.path:
     sys.path.insert(0, str(PROJECT_DIR))
 
-# print(PROJECT_DIR)
-from config import settings
+print(PROJECT_DIR)
+from workspace.app.config import settings
 
 WORKSPACE_ROOT= PROJECT_DIR
 
@@ -59,7 +59,8 @@ def read_data(path: str) -> str:
 def execute_sql(query: str) -> str:
     """Execute SQL against the workspace SQLite database. Requires approval."""
     with sqlite3.connect(DATABASE_PATH) as connection:
-        cursor = connection.execute(query)
+        # cursor = connection.execute(query)
+        cursor = connection.executescript(query)
 
         if cursor.description:
             columns = [item[0] for item in cursor.description]
