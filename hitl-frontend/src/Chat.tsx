@@ -34,11 +34,13 @@ export default function Chat() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8012';
+
   async function apiRequest(
     endpoint: string,
     body: Record<string, unknown>
   ): Promise<ApiResult> {
-    const response = await fetch(`/api${endpoint}`, {
+    const response = await fetch(`${API_BASE_URL}/api${endpoint}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
