@@ -4,7 +4,7 @@ from typing import Any, Literal
 from uuid import uuid4
 import uvicorn
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException,  APIRouter
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel, Field
 from langgraph.types import Command
@@ -25,8 +25,9 @@ app = FastAPI(
     title="AI Workspace API",
     version="0.2.0",
     description="AI Workspace with validated HITL approvals",
-    prefix="/api",
 )
+
+api_router = APIRouter(prefix="/api")
 
 app.add_middleware(
     CORSMiddleware,
@@ -139,7 +140,7 @@ def response_payload(
     }
 
 
-@app.get("/health")
+@api_router.get("/health")
 def health():
     return {
         "status": "ok",
@@ -147,7 +148,7 @@ def health():
     }
 
 
-@app.post("/hitl/run")
+@api_router.post("/hitl/run")
 def hitl_run(request: RunRequest):
     thread_id = request.thread_id or str(uuid4())
 
@@ -189,7 +190,7 @@ def hitl_run(request: RunRequest):
         ) from exc
 
 
-@app.post("/hitl/respond")
+@api_router.post("/hitl/respond")
 def hitl_respond(request: RespondRequest):
     # Validate the request shape.
     if request.decisions is not None and request.decision is not None:
@@ -310,6 +311,8 @@ def hitl_respond(request: RespondRequest):
 # @app.get("/")
 # def read_root():
 #     return {"message": "Hello World"}
+
+app.include_router(api_router)
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="127.0.0.1", port=8012, reload=True)
