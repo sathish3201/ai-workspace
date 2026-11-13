@@ -25,6 +25,7 @@ app = FastAPI(
     title="AI Workspace API",
     version="0.2.0",
     description="AI Workspace with validated HITL approvals",
+    prefix="/api",
 )
 
 app.add_middleware(
