@@ -37,13 +37,15 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+        working-directory: ./hitl-frontend
 
       - name: Build
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
           VITE_BASE_PATH: ${{ secrets.VITE_BASE_PATH }}
         run: npm run build
+        working-directory: ./hitl-frontend    
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
