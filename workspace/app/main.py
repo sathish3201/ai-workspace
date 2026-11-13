@@ -8,7 +8,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel, Field
 from langgraph.types import Command
-
+from fastapi.middleware.cors import CORSMiddleware
 import sys
 from pathlib import Path
 
@@ -27,6 +27,13 @@ app = FastAPI(
     description="AI Workspace with validated HITL approvals",
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allowed_origins = settings.allowed_origins,
+    allow_credentials = True,
+    allow_methods =["*"],
+    allow_headers = ["*"],
+)
 # Development-only registry. Cleared when this process restarts.
 pending_approvals: dict[str, dict[str, Any]] = {}
 approval_lock = Lock()
